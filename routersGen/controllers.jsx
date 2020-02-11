@@ -152,3 +152,31 @@ exports.updateIndividual = (req, res, next) => {
         .json({ errorMessage: "Error in updateIndividual" });
     });
 };
+
+// ================================
+//            GET, ID
+// ================================
+// @desc    GET recipes with :id
+// @route   GET to /api/recipes/:id
+exports.getMultiple = (req, res, next) => {
+  helper
+    .findAndReturn(req.params.id)
+    // .get()
+    // .where({ id: req.params.id })
+    // .first()
+    .then(individual => {
+      console.log("getMultiple", individual);
+      if (individual) {
+        res
+          .status(200) //success
+          .json(individual);
+      } else {
+        error400("Account not found");
+      }
+    })
+    .catch(e => {
+      res
+        .status(500) //server error
+        .json({ error: "error in getIndividual" });
+    });
+};

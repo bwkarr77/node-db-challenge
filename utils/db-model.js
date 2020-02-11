@@ -46,6 +46,14 @@ const findById = (endpoint, id) => {
           //   "projects.project_id"
           // )
           // .join("resources as pR", "pR.project_id", "projects.project_id")
+          //
+          // .join(
+          //   "project_tasks",
+          //   "project_tasks.project_id",
+          //   "=",
+          //   "projects.project_id"
+          // )
+          //
           .select(
             "projects.project_id",
             "projects.project_name",
@@ -97,9 +105,41 @@ const deleteUnit = (endpoint, id) => {
     */
 };
 
+const findAndReturn = id => {
+  console.log("model > findAndReturn:", id);
+
+  return (
+    db("projects")
+      .where({ project_id: id }) //searching by id
+      .first() //first data that matches
+      // .join("tasks", "projects.project_id", "tasks.project_id")
+      // .join(
+      //   "project_resources as pR",
+      //   "pr.project_id",
+      //   "projects.project_id"
+      // )
+      // .join("resources as pR", "pR.project_id", "projects.project_id")
+      //
+      // .join(
+      //   "project_tasks",
+      //   "project_tasks.project_id",
+      //   "=",
+      //   "projects.project_id"
+      // )
+      //
+      .select(
+        "projects.project_id",
+        "projects.project_name",
+        "projects.project_desc",
+        "projects.project_completed"
+      )
+  );
+};
+
 module.exports = {
   addNew,
   getAll,
   findById,
-  deleteUnit
+  deleteUnit,
+  findAndReturn
 };

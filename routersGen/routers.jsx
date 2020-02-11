@@ -6,7 +6,8 @@ const {
   createNew,
   getIndividual,
   deleteIndividual,
-  updateIndividual
+  updateIndividual,
+  getMultiple
 } = require("./controllers.jsx");
 
 router
@@ -38,5 +39,7 @@ router
   .route("/tasks/:id")
   .get(getIndividual)
   .delete(deleteIndividual);
+
+router.route("/project_tasks/:id").get(getMultiple);
 
 module.exports = router;
